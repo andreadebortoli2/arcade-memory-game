@@ -101,5 +101,15 @@ main {
         color: steelblue;
         box-shadow: 0 0 50px 50px #f70d67ee;
         border-radius: 1rem;
+
+        button {
+            padding: 1rem;
+            font-size: 2rem;
+            border-radius: 0.5rem;
+            background-color: steelblue;
+            color: white;
+            font-family: "Pixelify Sans", sans-serif;
+            border-color: steelblue;
+        }
     }
 }
