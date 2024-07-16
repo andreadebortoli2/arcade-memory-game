@@ -1,27 +1,27 @@
 // cards array
 const cards = [
     {
-        img: 'img_url',
+        img: './assets/images/alien.png',
         value: 1
     },
     {
-        img: 'img_url',
+        img: './assets/images/bug.png',
         value: 2
     },
     {
-        img: 'img_url',
+        img: './assets/images/duck.png',
         value: 3
     },
     {
-        img: 'img_url',
+        img: './assets/images/rocket.png',
         value: 4
     },
     {
-        img: 'img_url',
+        img: './assets/images/spaceship.png',
         value: 5
     },
     {
-        img: 'img_url',
+        img: './assets/images/tiktac.png',
         value: 6
     },
 ];
@@ -57,7 +57,13 @@ console.log(gameBoard);
 shuffledCards.forEach(card => {
     let gameCard = document.createElement('div');
     gameCard.className = 'game-card';
-    gameCard.innerHTML = card.value;
+    gameCard.setAttribute('data-value', card.value)
+    // gameCard.innerHTML = card.value;
+    // add image
+    let gameCardImage = document.createElement('img');
+    gameCardImage.setAttribute('src', card.img)
+    gameCard.appendChild(gameCardImage);
+
     console.log(gameCard);
     gameBoard.append(gameCard);
 });

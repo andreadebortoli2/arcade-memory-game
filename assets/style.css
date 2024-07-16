@@ -1,0 +1,11 @@
+#game-board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+
+    .game-card {
+        img {
+            width: 10rem;
+        }
+    }
+}
