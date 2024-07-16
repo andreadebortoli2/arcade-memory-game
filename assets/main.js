@@ -72,6 +72,36 @@ shuffledCards.forEach(card => {
     gameBoard.append(gameCard);
 });
 
+// chronometer to calc the game time
+let minutes = 0;
+let seconds = 0;
+let chronometer;
+
+function startChronometer() {
+    chronometer = setInterval(function () {
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+        }
+        document.getElementById("chronometer").innerHTML =
+            (minutes < 10 ? '0' : '') + minutes + ':' +
+            (seconds < 10 ? '0' : '') + seconds;
+    }, 1000);
+}
+
+function stopChronometer() {
+    clearInterval(chronometer);
+}
+
+function resetChronometer() {
+    clearInterval(chronometer);
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+    document.getElementById("chronometer").innerHTML = "00:00";
+}
+
 let firstCard = null;
 let firstCardIndex = null;
 let checkedCards = [];
@@ -86,9 +116,13 @@ let errorCount = 0;
 function cardCheck(card, cardValue, cardIndex) {
     // add class to show the card
     card.classList.add('check');
-    //console.log(card.classList);
-    // if is the first card set it as first card else check for equel value
+    // start chronometer
+    if (minutes === 0 && seconds === 0) {
+        startChronometer();
+    };
+
     if (firstCard == null && firstCardIndex == null) {
+        // if is the first card set it as first card else check for equel value
         firstCard = cardValue;
         firstCardIndex = cardIndex
         // console.log('1st', firstCard, firstCardIndex);
@@ -108,18 +142,17 @@ function cardCheck(card, cardValue, cardIndex) {
             if (secondCard === firstCard && secondCardIndex !== firstCardIndex) {
                 // if cards have equal value push in checked cards array
                 checkedCards.push(firstCard);
-                console.log(checkedCards);
+                // console.log(checkedCards);
                 firstCard = null;
                 firstCardIndex = null;
                 gameCards.forEach(card => {
                     card.addEventListener('click', card.eventListener);
                 });
                 if (checkedCards.length === 6) {
-                    console.log('end game');
-                    const endMessage = document.createElement('div');
-                    endMessage.classList.add('end-message');
-                    endMessage.innerHTML = `you win with ${errorCount} errors`;
-                    document.getElementById('game-board').appendChild(endMessage);
+                    // console.log('end game');
+                    stopChronometer();
+                    const endMessage = document.getElementById('end-message');
+                    endMessage.innerHTML = `you win with ${errorCount} errors in ${minutes} minutes and ${seconds} seconds !!`;
                 }
             } else {
                 // remove class to hide cards that have not equal value
