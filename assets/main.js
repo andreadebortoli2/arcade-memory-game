@@ -59,10 +59,14 @@ shuffledCards.forEach(card => {
     gameCard.className = 'game-card';
     gameCard.setAttribute('data-value', card.value)
     // gameCard.innerHTML = card.value;
-    // add image
+    // add images front and back
     let gameCardImage = document.createElement('img');
-    gameCardImage.setAttribute('src', card.img)
+    gameCardImage.setAttribute('src', card.img);
     gameCard.appendChild(gameCardImage);
+    let gameCardBackImage = document.createElement('img');
+    gameCardBackImage.setAttribute('src', './assets/images/back.png');
+    gameCardBackImage.setAttribute('class', 'back-image');
+    gameCard.appendChild(gameCardBackImage);
 
     // console.log(gameCard);
     gameBoard.append(gameCard);
@@ -80,47 +84,62 @@ let errorCount = 0;
  * @param {Number} cardIndex 
  */
 function cardCheck(card, cardValue, cardIndex) {
-    // dadd class to show the card
+    // add class to show the card
     card.classList.add('check');
-    // console.log(card.classList);
+    //console.log(card.classList);
     // if is the first card set it as first card else check for equel value
     if (firstCard == null && firstCardIndex == null) {
         firstCard = cardValue;
         firstCardIndex = cardIndex
         // console.log('1st', firstCard, firstCardIndex);
+    } else if (cardIndex === firstCardIndex) {
+        // if double click a card just hide, no error
+        card.classList.remove('check');
+        firstCard = null;
+        firstCardIndex = null
     } else {
-        let secondCard = cardValue;
-        let secondCardIndex = cardIndex;
-        // console.log('2nd', secondCard, secondCardIndex);
-        if (secondCard === firstCard && secondCardIndex !== firstCardIndex) {
-            // if cards have equal value push in checked cards array
-            checkedCards.push(firstCard);
-            console.log(checkedCards);
-            firstCard = null;
-            firstCardIndex = null
-            if (checkedCards.length === 6) {
-                console.log('end game');
-            }
-        } else if (secondCardIndex === firstCardIndex) {
-            // if double click a card just hide, no error
-            card.classList.remove('check');
-            firstCard = null;
-            firstCardIndex = null
-        } else {
-            // remove class to hide cards that have not equal value
-            gameCards.forEach(card => {
-                if (!checkedCards.includes(card.attributes[1].value)) {
-                    card.classList.remove('check');
+        gameCards.forEach(card => {
+            card.removeEventListener('click', card.eventListener);
+        });
+        setTimeout(() => {
+            let secondCard = cardValue;
+            let secondCardIndex = cardIndex;
+            // console.log('2nd', secondCard, secondCardIndex);
+            if (secondCard === firstCard && secondCardIndex !== firstCardIndex) {
+                // if cards have equal value push in checked cards array
+                checkedCards.push(firstCard);
+                console.log(checkedCards);
+                firstCard = null;
+                firstCardIndex = null;
+                gameCards.forEach(card => {
+                    card.addEventListener('click', card.eventListener);
+                });
+                if (checkedCards.length === 6) {
+                    console.log('end game');
+                    const endMessage = document.createElement('div');
+                    endMessage.classList.add('end-message');
+                    endMessage.innerHTML = `you win with ${errorCount} errors`;
+                    document.getElementById('game-board').appendChild(endMessage);
                 }
-            });
-            errorCount++;
-            firstCard = null;
-            firstCardIndex = null
-        }
-    }
+            } else {
+                // remove class to hide cards that have not equal value
+                gameCards.forEach(card => {
+                    if (!checkedCards.includes(card.attributes[1].value)) {
+                        card.classList.remove('check');
+                    }
+                });
+                errorCount++;
+                firstCard = null;
+                firstCardIndex = null;
+                gameCards.forEach(card => {
+                    card.addEventListener('click', card.eventListener);
+                });
+            }
+        }, 700);
+    };
     // console.log(gameBoard);
     // console.log(errorCount);
-}
+};
 
 // select all cards and add event listener
 const gameCards = document.querySelectorAll('.game-card');
@@ -129,5 +148,8 @@ const gameCards = document.querySelectorAll('.game-card');
 gameCards.forEach((card, index) => {
     let cardValue = card.attributes[1].value;
     let cardIndex = index;
-    card.addEventListener('click', function (e) { cardCheck(card, cardValue, cardIndex) });
+    card.eventListener = function (e) {
+        cardCheck(card, cardValue, cardIndex);
+    };
+    card.addEventListener('click', card.eventListener);
 });

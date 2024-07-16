@@ -4,12 +4,25 @@
     width: 70%;
 
     .game-card {
+        position: relative;
+
         img {
             width: 10rem;
+        }
+
+        :last-child {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
         }
     }
 
     .game-card.check {
         border: 3px dashed red;
+
+        :last-child {
+            display: none;
+        }
     }
 }
