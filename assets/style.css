@@ -1,26 +1,105 @@
-#game-board {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: steelblue;
+}
+
+main {
     display: flex;
-    flex-wrap: wrap;
+}
+
+.left {
     width: 70%;
+    padding: 3rem 0 3rem 2rem;
 
-    .game-card {
-        position: relative;
+    #game-board {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
 
-        img {
-            width: 10rem;
+        .game-card {
+            position: relative;
+            width: fit-content;
+            width: calc(100% / 4);
+
+            img {
+                width: 100%;
+            }
+
+            :last-child {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 5;
+            }
         }
 
-        :last-child {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 5;
+        .game-card.check {
+            :last-child {
+                display: none;
+            }
+        }
+    }
+}
+
+.right {
+    padding: 3rem 1rem;
+    color: white;
+    font-family: "Pixelify Sans", sans-serif;
+
+    .game-info {
+        margin-left: 2rem;
+        padding: 1rem 0;
+        display: flex;
+
+        h1 {
+            font-size: 4rem;
+        }
+
+        p {
+            padding: 0 2rem;
+            font-size: 1.5rem;
+            align-self: self-end;
+            font-weight: bold;
         }
     }
 
-    .game-card.check {
-        :last-child {
-            display: none;
+    .game-points {
+        display: flex;
+        justify-content: space-between;
+        font-size: 2rem;
+        font-weight: bolder;
+        margin-left: 2rem;
+
+        p {
+            text-align: center;
         }
+    }
+}
+
+#end-message {
+    display: none;
+
+    &.show {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        background-color: white;
+        width: 60%;
+        padding: 2rem;
+        text-align: center;
+        font-size: 4rem;
+        font-weight: bold;
+        font-family: "Pixelify Sans", sans-serif;
+        color: steelblue;
+        box-shadow: 0 0 50px 50px #f70d67ee;
+        border-radius: 1rem;
     }
 }

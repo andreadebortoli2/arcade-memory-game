@@ -4,14 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade: memory game</title>
+    <title>Arcade mania: memory game</title>
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <main>
-        <div id="game-board"></div>
-        <div id="chronometer">00:00</div>
+        <section class="left">
+            <div id="game-board"></div>
+        </section>
+        <section class="right">
+            <div class="logo"><img src="./assets/images/logo.png" alt=""></div>
+            <div class="game-info">
+                <h1 class="game-title">Memory <br> Game</h1>
+                <p class="game-description">Match the identical symbols and uncover the entire grid.</p>
+            </div>
+            <div class="game-points">
+                <p class="game-time">Time: <span id="chronometer">00:00</span></p>
+                <p class="game-errors">
+                <p id="errors">Errors: 0</p>
+                </p>
+            </div>
+        </section>
         <div id="end-message"></div>
     </main>
     <script src="./assets/main.js"></script>

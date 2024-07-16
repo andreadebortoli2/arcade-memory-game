@@ -143,7 +143,8 @@ function cardCheck(card, cardValue, cardIndex) {
                 });
                 if (checkedCards.length === 6) {
                     const endMessage = document.getElementById('end-message');
-                    endMessage.innerHTML = `You win with ${errorCount} errors in ${minutes} minutes and ${seconds} seconds !!`;
+                    endMessage.setAttribute('class', 'show');
+                    endMessage.innerHTML = `You win!! <br> in ${minutes} minutes and ${seconds} seconds <br> with ${errorCount} errors`;
                     stopChronometer();
                 }
             } else {
