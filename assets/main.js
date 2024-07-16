@@ -117,7 +117,7 @@ function cardCheck(card, cardValue, cardIndex) {
     // add class to show the card
     card.classList.add('check');
     // start chronometer
-    if (minutes === 0 && seconds === 0) {
+    if (minutes === 0 && seconds === 0 && checkedCards.length === 0) {
         startChronometer();
     };
 
@@ -150,9 +150,9 @@ function cardCheck(card, cardValue, cardIndex) {
                 });
                 if (checkedCards.length === 6) {
                     // console.log('end game');
-                    stopChronometer();
                     const endMessage = document.getElementById('end-message');
                     endMessage.innerHTML = `you win with ${errorCount} errors in ${minutes} minutes and ${seconds} seconds !!`;
+                    stopChronometer();
                 }
             } else {
                 // remove class to hide cards that have not equal value
@@ -168,7 +168,7 @@ function cardCheck(card, cardValue, cardIndex) {
                     card.addEventListener('click', card.eventListener);
                 });
             }
-        }, 700);
+        }, 600);
     };
     // console.log(gameBoard);
     // console.log(errorCount);

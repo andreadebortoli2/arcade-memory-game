@@ -19,8 +19,6 @@
     }
 
     .game-card.check {
-        border: 3px dashed red;
-
         :last-child {
             display: none;
         }
